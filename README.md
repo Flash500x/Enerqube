@@ -1,73 +1,87 @@
-# React + TypeScript + Vite
+# Enerqube ⚡️
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Enerqube** is a next-generation Smart Home Energy Management Dashboard designed to give users complete control over their home's energy consumption, device management, and safety insights. Built with modern web technologies, it offers a seamless, responsive, and aesthetically pleasing interface.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **🏠 IoT Device Control**
 
-## React Compiler
+  - Toggle appliances (Lights, Fans, AC, Water Heater, etc.) on/off instantly.
+  - Adjust specific settings like Fan Speed, Light Brightness, and AC Temperature.
+  - Real-time status updates and power usage indicators.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **📊 Energy Monitoring**
 
-## Expanding the ESLint configuration
+  - **Live Usage Tracking:** Monitor real-time power consumption (Watts).
+  - **Daily Limits:** Set daily kWh limits via an interactive drawer with visual progress bars.
+  - **Visual Analytics:** Interactive charts and graphs to visualization consumption trends.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **🛡 Safety & AI Insights**
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+  - **AI-Powered Alerts:** Receive intelligent alerts for abnormal usage patterns, potential faults, or efficiency tips.
+  - **Actionable Recommendations:** Get prioritized suggestions for maintenance and safety (e.g., "Check wiring", "Clean AC filters").
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **🔧 Services & Tools**
+  - **Doorstep Delight:** Request services for maintenance, new connections, or ownership changes directly from the app.
+  - **Quick Fix Complaints:** Track and manage service complaints with status updates.
+  - **Detailed Reports:** View comprehensive energy reports.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🛠 Tech Stack
+
+- **Framework:** [React 19](https://react.dev/) + [Vite](https://vitejs.dev/)
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/)
+- **UI Components:** [Shadcn UI](https://ui.shadcn.com/) (Radix UI primitives)
+- **Icons:** [Lucide React](https://lucide.dev/)
+- **Charts:** [Recharts](https://recharts.org/) & [Chart.js](https://www.chartjs.org/)
+- **Language:** TypeScript
+
+## 📦 Installation & Setup
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/Flash500x/Enerqube.git
+   cd Enerqube
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server**
+
+   ```bash
+   npm run dev
+   ```
+
+   The app will be available at `http://localhost:5173`.
+
+4. **Build for production**
+   ```bash
+   npm run build
+   ```
+
+## 📂 Project Structure
+
+```
+src/
+├── components/     # Reusable UI components (Shadcn, specialized cards)
+├── pages/          # Main application pages
+│   ├── Appliances.tsx  # Device control center
+│   ├── Energy.tsx      # Energy usage analytics
+│   ├── Overview.tsx    # Dashboard home
+│   ├── Reports.tsx     # Billing and usage reports
+│   ├── Safety.tsx      # AI safety insights
+│   └── Settings.tsx    # User profile and app settings
+└── App.tsx         # Main application entry
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🤝 Contributing
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📄 License
+
+This project is licensed under the MIT License.
