@@ -144,7 +144,7 @@ export default function SafetyTab() {
       </div>
 
       <div className="space-y-4">
-        <div className="grid gap-4 grid">
+        <div className="grid gap-4 ">
           {aiInsights.map((insight) => (
             <Alert key={insight.id} className="border-l-4 ">
               <insight.icon className="h-5 w-5" />
@@ -205,7 +205,7 @@ export default function SafetyTab() {
                         action.priority
                       )}`}
                     >
-                      <action.icon className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                      <action.icon className="w-5 h-5 mt-0.5 shrink-0" />
                       <div className="flex-1">
                         <p className="font-medium">{action.text}</p>
                       </div>
