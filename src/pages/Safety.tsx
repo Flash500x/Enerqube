@@ -9,13 +9,11 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import {
   AlertTriangle,
-  CheckCircle2,
   Lightbulb,
   Wrench,
   Droplets,
   Power,
   Phone,
-  Zap,
   TrendingUp,
   Shield,
 } from "lucide-react";
@@ -107,7 +105,7 @@ export default function SafetyTab() {
     },
   ];
 
-  const getSeverityColor = (severity) => {
+  const getSeverityColor = (severity: string) => {
     switch (severity) {
       case "high":
         return "destructive";
@@ -120,7 +118,7 @@ export default function SafetyTab() {
     }
   };
 
-  const getPriorityColor = (priority) => {
+  const getPriorityColor = (priority: string) => {
     switch (priority) {
       case "high":
         return "text-white bg-red-990 border";

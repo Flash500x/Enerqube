@@ -1,12 +1,6 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs";
-import DataCard from "./components/ui/DataCard";
-import UsageChart from "./components/ui/UsageChart";
 import { Navbar01 } from "@/components/ui/shadcn-io/navbar-01";
 import { Zap } from "lucide-react";
-import { AlertCircleIcon, CheckCircle2Icon, PopcornIcon } from "lucide-react";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ThemeProvider } from "@/components/theme-provider";
-import { ModeToggle } from "./components/mode-toggle";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Overview from "./pages/Overview";
 import Energy from "./pages/Energy";

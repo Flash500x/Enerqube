@@ -1,17 +1,7 @@
-import React from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DataCard from "@/components/ui/DataCard";
-import UsageChart from "@/components/ui/UsageChart";
-import { Navbar01 } from "@/components/ui/shadcn-io/navbar-01";
-import { Zap } from "lucide-react";
-import { AlertCircleIcon, CheckCircle2Icon, PopcornIcon } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Minus } from "lucide-react";
-import { Plus } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { useState } from "react";
 const Overview = () => {
   const randomizer = (m: number, n: number) => {
     return Math.round(Math.random() * (n - m) + m);
