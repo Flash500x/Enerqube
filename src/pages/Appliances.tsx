@@ -2,6 +2,17 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 import {
   Fan,
   Lightbulb,
@@ -11,9 +22,6 @@ import {
   Droplets,
   Coffee,
   Zap,
-  TrendingUp,
-  Clock,
-  DollarSign,
   AlertCircle,
 } from "lucide-react";
 
@@ -68,9 +76,12 @@ export default function IoTControlCenter() {
     },
   ]);
 
+  const [kWhLimit, setKWhLimit] = useState(100);
+  const [tempLimit, setTempLimit] = useState(100);
+
   const iconMap = { Fan, Lightbulb, Wind, Tv, Coffee, Droplets, Thermometer };
 
-  const toggleDevice = (id) => {
+  const toggleDevice = (id: number) => {
     setDevices(
       devices.map((d) =>
         d.id === id
@@ -80,16 +91,18 @@ export default function IoTControlCenter() {
     );
   };
 
-  const updateDeviceControl = (id, controlType, value) => {
+  const updateDeviceControl = (
+    id: number,
+    controlType: string,
+    value: number
+  ) => {
     setDevices(
       devices.map((d) => (d.id === id ? { ...d, [controlType]: value } : d))
     );
   };
 
-  const totalCurrentPower = devices.reduce((sum, d) => sum + d.currentUsage, 0);
   const totalDailyUsage = devices.reduce((sum, d) => sum + d.totalUsage, 0);
   const activeDevices = devices.filter((d) => d.isOn).length;
-  const estimatedCost = (totalDailyUsage * 8).toFixed(2);
 
   return (
     <div className="max-w-[1200px] mx-auto">
@@ -117,12 +130,118 @@ export default function IoTControlCenter() {
             </Alert>
             <Alert>
               <Zap className="h-4 w-4" />
-              <AlertTitle>Smart Home Hub: Active</AlertTitle>
-              <AlertDescription>Location: Kochi, Kerala, IN</AlertDescription>
-              <AlertTitle className="mt-2">Hub ID: SH-2025-KL-001</AlertTitle>
-              <AlertDescription>
-                Connected Devices: {devices.length} | Active: {activeDevices}
-              </AlertDescription>
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <AlertTitle>Smart Home Hub: Active</AlertTitle>
+                  <AlertDescription>
+                    Location: Kochi, Kerala, IN
+                  </AlertDescription>
+                  <AlertTitle className="mt-2">
+                    Hub ID: SH-2025-KL-001
+                  </AlertTitle>
+                  <AlertDescription>
+                    Connected Devices: {devices.length} | Active:{" "}
+                    {activeDevices}
+                  </AlertDescription>
+                </div>
+                <Drawer>
+                  <DrawerTrigger asChild>
+                    <Button variant="outline" size="sm" className="ml-2">
+                      Limit: {kWhLimit} kWh
+                    </Button>
+                  </DrawerTrigger>
+                  <DrawerContent>
+                    <div className="mx-auto w-full max-w-sm">
+                      <DrawerHeader>
+                        <DrawerTitle>Set Daily kWh Limit</DrawerTitle>
+                        <DrawerDescription>
+                          Configure your daily energy consumption limit
+                        </DrawerDescription>
+                      </DrawerHeader>
+                      <div className="p-4 pb-0">
+                        <div className="flex items-center justify-center space-x-2">
+                          <div className="flex-1 text-center">
+                            <div className="text-7xl font-bold tracking-tighter">
+                              {tempLimit}
+                            </div>
+                            <div className="text-[0.70rem] uppercase text-muted-foreground">
+                              kWh/day
+                            </div>
+                          </div>
+                        </div>
+                        <div className="mt-6 space-y-2">
+                          <div className="flex justify-between text-sm">
+                            <span className="text-muted-foreground">
+                              Current Usage:
+                            </span>
+                            <span className="font-semibold">
+                              {totalDailyUsage.toFixed(1)} kWh
+                            </span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span className="text-muted-foreground">
+                              Limit:
+                            </span>
+                            <span className="font-semibold">
+                              {kWhLimit} kWh
+                            </span>
+                          </div>
+                          <div className="w-full bg-secondary rounded-full h-2.5">
+                            <div
+                              className={`h-2.5 rounded-full transition-all ${
+                                totalDailyUsage > kWhLimit
+                                  ? "bg-red-500"
+                                  : totalDailyUsage > kWhLimit * 0.8
+                                  ? "bg-yellow-500"
+                                  : "bg-green-500"
+                              }`}
+                              style={{
+                                width: `${Math.min(
+                                  (totalDailyUsage / kWhLimit) * 100,
+                                  100
+                                )}%`,
+                              }}
+                            ></div>
+                          </div>
+                        </div>
+                        <div className="mt-6 h-[120px] flex items-center justify-center">
+                          <div className="w-full space-y-2">
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm text-muted-foreground">
+                                Adjust Limit
+                              </span>
+                              <span className="text-sm font-medium">
+                                {tempLimit} kWh
+                              </span>
+                            </div>
+                            <input
+                              type="range"
+                              min="10"
+                              max="200"
+                              step="5"
+                              value={tempLimit}
+                              onChange={(e) =>
+                                setTempLimit(parseInt(e.target.value))
+                              }
+                              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <DrawerFooter>
+                        <DrawerClose asChild>
+                          <Button onClick={() => setKWhLimit(tempLimit)}>
+                            Save Limit
+                          </Button>
+                        </DrawerClose>
+                        <DrawerClose asChild>
+                          <Button variant="outline">Cancel</Button>
+                        </DrawerClose>
+                      </DrawerFooter>
+                    </div>
+                  </DrawerContent>
+                </Drawer>
+              </div>
             </Alert>
           </div>
         </div>
@@ -135,7 +254,7 @@ export default function IoTControlCenter() {
 
         <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-8">
           {devices.map((device) => {
-            const Icon = iconMap[device.icon];
+            const Icon = iconMap[device.icon as keyof typeof iconMap];
             return (
               <Card
                 key={device.id}
